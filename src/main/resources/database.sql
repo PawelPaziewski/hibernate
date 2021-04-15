@@ -1,43 +1,111 @@
-create table Album
-(
-    id          bigint identity
-        primary key,
-    releaseDate datetime2,
-    title       varchar(255)
-)
-go
+USE [master]
+GO
 
-create table Artist
-(
-    id        bigint identity
-        primary key,
-    firstName varchar(255),
-    lastName  varchar(255),
-    pseudonym varchar(255)
-)
-go
+/****** Object:  Database [hibernate-music]    Script Date: 15.04.2021 22:11:16 ******/
+CREATE DATABASE [hibernate-music]
+ CONTAINMENT = NONE
+ ON  PRIMARY
+( NAME = N'hibernate-music', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.SQLEXPRESS\MSSQL\DATA\hibernate-music.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON
+( NAME = N'hibernate-music_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.SQLEXPRESS\MSSQL\DATA\hibernate-music_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
 
-create table Track
-(
-    id          bigint identity
-        primary key,
-    releaseDate datetime2,
-    title       varchar(255),
-    album_id    bigint
-        constraint FKbvgarccx945r5j9owhpoyh2hx
-            references Album
-)
-go
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [hibernate-music].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
 
-create table Artist_Track
-(
-    artist_id bigint not null
-        constraint FKi3gnbikqa8568lxmvw341b6lf
-            references Artist,
-    track_id  bigint not null
-        constraint FKmoclej7u6v46a6h1las3g6oxp
-            references Track,
-    primary key (artist_id, track_id)
-)
-go
+ALTER DATABASE [hibernate-music] SET ANSI_NULL_DEFAULT OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET ANSI_NULLS OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET ANSI_PADDING OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET ANSI_WARNINGS OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET ARITHABORT OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET AUTO_CLOSE OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET AUTO_SHRINK OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET AUTO_UPDATE_STATISTICS ON
+GO
+
+ALTER DATABASE [hibernate-music] SET CURSOR_CLOSE_ON_COMMIT OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET CURSOR_DEFAULT  GLOBAL
+GO
+
+ALTER DATABASE [hibernate-music] SET CONCAT_NULL_YIELDS_NULL OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET NUMERIC_ROUNDABORT OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET QUOTED_IDENTIFIER OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET RECURSIVE_TRIGGERS OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET  DISABLE_BROKER
+GO
+
+ALTER DATABASE [hibernate-music] SET AUTO_UPDATE_STATISTICS_ASYNC OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET DATE_CORRELATION_OPTIMIZATION OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET TRUSTWORTHY OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET ALLOW_SNAPSHOT_ISOLATION OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET PARAMETERIZATION SIMPLE
+GO
+
+ALTER DATABASE [hibernate-music] SET READ_COMMITTED_SNAPSHOT OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET HONOR_BROKER_PRIORITY OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET RECOVERY SIMPLE
+GO
+
+ALTER DATABASE [hibernate-music] SET  MULTI_USER
+GO
+
+ALTER DATABASE [hibernate-music] SET PAGE_VERIFY CHECKSUM
+GO
+
+ALTER DATABASE [hibernate-music] SET DB_CHAINING OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF )
+GO
+
+ALTER DATABASE [hibernate-music] SET TARGET_RECOVERY_TIME = 60 SECONDS
+GO
+
+ALTER DATABASE [hibernate-music] SET DELAYED_DURABILITY = DISABLED
+GO
+
+ALTER DATABASE [hibernate-music] SET QUERY_STORE = OFF
+GO
+
+ALTER DATABASE [hibernate-music] SET  READ_WRITE
+GO
 
