@@ -3,8 +3,11 @@ package DAOs;
 import org.hibernate.Session;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public abstract class GenericDao<R, T extends Serializable> {
 
@@ -25,5 +28,16 @@ public abstract class GenericDao<R, T extends Serializable> {
         session.getTransaction().commit();
         session.close();
         return result;
+    }
+
+    public List<R> findByIds(T[] ids) {
+        final List<T> idsList = Arrays.stream(ids).collect(Collectors.toList());
+        return doInTx(s -> s.createQuery("select e from " + getClazz().getName() + " e where e.id in :ids", getClazz())
+                .setParameter("ids", idsList)
+                .getResultList());
+    }
+
+    public void save(R entity) {
+        doInTx(s -> s.save(entity));
     }
 }
